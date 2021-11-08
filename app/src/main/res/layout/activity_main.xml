@@ -12,7 +12,21 @@
         app:navGraph="@navigation/main_graph"
         app:defaultNavHost="true" />
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nv_main"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"/>
+        android:layout_gravity="start"
+        android:fitsSystemWindows="false"
+        app:menu="@menu/menu_general">
+
+
+    </com.google.android.material.navigation.NavigationView>
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar_general"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.drawerlayout.widget.DrawerLayout>
