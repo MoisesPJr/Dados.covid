@@ -9,23 +9,23 @@ import java.util.*
 @Parcelize
 data class Estado(
     @SerializedName("uid")
-    val uid: Int,
+    val uid: Int?,
     @SerializedName("uf")
-    val uf: String,
+    val uf: String?,
     @SerializedName("state")
-    val state: String,
+    val state: String?,
     @SerializedName("cases")
-    val cases: Int,
+    val cases: Int?,
     @SerializedName("deaths")
-    val deaths: Int,
-    @SerializedName("suspect")
-    val suspect: Int,
+    val deaths: Int?,
+    @SerializedName("suspects")
+    val suspect: Int?,
     @SerializedName("refuses")
-    val refuses: Int,
+    val refuses: Int?,
     @SerializedName("broadcast")
-    val broadcast: Boolean,
+    val broadcast: Boolean?,
     @SerializedName("comments")
-    val comments: String,
+    val comments: String?,
     @SerializedName("datetime")
-    val dateTime: Date,
+    val dateTime: Date?,
 ) : Parcelable

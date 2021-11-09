@@ -1,4 +1,4 @@
-package com.example.coviddata.feature.countries.view
+package com.example.coviddata.feature.States.view
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,24 +6,25 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coviddata.R
+import com.example.coviddata.feature.States.domain.Estado
 import com.example.coviddata.feature.countries.domain.Country
 
 
-class AdapterCountries(var listData: MutableList<Country>) : RecyclerView.Adapter<AdapterCountries.MyViewHolder>() {
+class AdapterStates(var listData: MutableList<Estado>) : RecyclerView.Adapter<AdapterStates.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemCountry: View = LayoutInflater.from(parent.context).inflate(R.layout.item_country, parent, false)
+        val itemCountry: View = LayoutInflater.from(parent.context).inflate(R.layout.item_states, parent, false)
         return MyViewHolder(itemCountry)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val country : Country = listData[position]
-        holder.nome.setText(country.country)
-        holder.cases.setText("Cases: ${country.cases.toString()}")
-        holder.confirmed.setText("Confirmed: ${country.confirmed.toString()}")
-        holder.deaths.setText("Deaths: ${country.deaths.toString()}")
-        holder.recovered.setText("Recovered: ${country.recovered.toString()}")
-        holder.date.setText("Date: ${country.updatedAt.toString()}")
+        val state : Estado = listData[position]
+        holder.nome.setText(state.state)
+        holder.cases.setText("Cases: ${state.cases}")
+        holder.suspect.setText("Suspects: ${state.suspect}")
+        holder.deaths.setText("Deaths: ${state.deaths}")
+        holder.refuses.setText("Refuses: ${state.refuses}")
+        holder.date.setText("Date: ${state.dateTime}")
     }
 
     override fun getItemCount(): Int {
@@ -35,9 +36,9 @@ class AdapterCountries(var listData: MutableList<Country>) : RecyclerView.Adapte
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var nome: TextView = itemView.findViewById(R.id.tv_name)
         var cases: TextView = itemView.findViewById(R.id.tv_cases)
-        var confirmed: TextView = itemView.findViewById(R.id.tv_confirmed)
+        var suspect: TextView = itemView.findViewById(R.id.tv_suspect)
         var deaths: TextView = itemView.findViewById(R.id.tv_deaths)
-        var recovered: TextView = itemView.findViewById(R.id.tv_recovered)
+        var refuses: TextView = itemView.findViewById(R.id.tv_refuses)
         var date: TextView = itemView.findViewById(R.id.tv_date)
 
     }

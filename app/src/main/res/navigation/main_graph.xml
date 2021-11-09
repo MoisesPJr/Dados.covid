@@ -19,4 +19,12 @@
     </fragment>
 
 
+    <fragment
+        android:id="@+id/nav_brazil"
+        android:name="com.example.coviddata.feature.States.view.StatesFragment"
+        android:label="Brazil"
+        tools:layout="@layout/states_fragment">
+    </fragment>
+
+
 </navigation>
