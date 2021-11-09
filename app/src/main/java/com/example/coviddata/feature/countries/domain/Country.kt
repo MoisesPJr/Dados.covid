@@ -1,28 +1,21 @@
-package com.example.coviddata.feature.country.domain
+package com.example.coviddata.feature.countries.domain
 
 import android.os.Parcelable
-import androidx.versionedparcelable.ParcelField
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 import java.util.*
-
-
-data class Teste(
-    val data: Data
-)
-
 @Parcelize
-data class Data(
+data class Country(
     @SerializedName("country")
     val country: String?,
     @SerializedName("cases")
-    val cases: Long?,
+    val cases: Int?,
     @SerializedName("confirmed")
     val confirmed: Int?,
     @SerializedName("deaths")
     val deaths: Int?,
     @SerializedName("recovered")
-    val recovered: Long?,
+    val recovered: Int?,
     @SerializedName("updated_at")
     val updatedAt: Date?
 ): Parcelable

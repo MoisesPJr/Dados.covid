@@ -1,7 +1,8 @@
 package com.example.coviddata.service
 
-import com.example.coviddata.feature.country.domain.Data
-import com.example.coviddata.feature.country.domain.Teste
+import com.example.coviddata.feature.countries.domain.Countries
+import com.example.coviddata.feature.countries.domain.Country
+import com.example.coviddata.feature.States.domain.States
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -9,9 +10,19 @@ import retrofit2.http.Path
 
 interface CovidService {
 
+    //Por pais
+    @GET("v1/{country}")
+    fun getCountry(@Path("country") country: String): Call<Country>
 
-    @GET("{country}")
-    fun getCountries(@Path("country") country:String) : Call<Teste>
+
+    //Todos os paises
+    @GET("v1/countries")
+    fun getCountries(): Call<Countries>
+
+    //Todos os estados
+    @GET("v1/")
+    fun getStatesBrazil(): Call<States>
+
 
 
 }

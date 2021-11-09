@@ -10,9 +10,9 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-open class CountryModule {
+open class CovidModule {
 
-    val baseUrl = "https://covid19-brazil-api.vercel.app/api/report/v1/"
+    val baseUrl = "https://covid19-brazil-api.vercel.app/api/report/"
 
     @Provides
     @Singleton

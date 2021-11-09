@@ -3,4 +3,16 @@
 
 
     <string name="title_general">Dados da Covid</string>
+    <string name="txt_abrir_menu">Abrir menu</string>
+    <string name="txt_fechar_menu">Fechar menu</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Covid-19</string>
+    <string name="nav_header_subtitle">moises.pereirajr1@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_world">World</string>
+    <string name="menu_brazil">Brazil</string>
 </resources>
