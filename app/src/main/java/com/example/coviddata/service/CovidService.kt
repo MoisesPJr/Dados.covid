@@ -1,10 +1,8 @@
 package com.example.coviddata.service
 
+import com.example.coviddata.feature.States.domain.States
 import com.example.coviddata.feature.countries.domain.Countries
 import com.example.coviddata.feature.countries.domain.Country
-import com.example.coviddata.feature.States.domain.States
-import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 

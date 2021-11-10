@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coviddata.R
 import com.example.coviddata.feature.States.domain.Estado
-import com.example.coviddata.feature.countries.domain.Country
 
 
 class AdapterStates(var listData: MutableList<Estado>) : RecyclerView.Adapter<AdapterStates.MyViewHolder>() {

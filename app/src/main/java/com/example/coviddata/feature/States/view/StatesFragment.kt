@@ -5,16 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.coviddata.databinding.CountriesFragmentBinding
 import com.example.coviddata.databinding.StatesFragmentBinding
-import com.example.coviddata.feature.States.domain.Estado
 import com.example.coviddata.feature.States.domain.States
-import com.example.coviddata.feature.countries.domain.Countries
-import com.example.coviddata.plugin.CountryViewModel
 import com.example.coviddata.plugin.StateViewModel
 
 
@@ -23,7 +19,7 @@ class StatesFragment : Fragment() {
 
     private var _binding: StatesFragmentBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: StateViewModel
+    private val viewModel: StateViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -36,7 +32,6 @@ class StatesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(StateViewModel(requireActivity().application)::class.java)
         initView()
         registrationObserver()
 
@@ -46,18 +41,18 @@ class StatesFragment : Fragment() {
 
     private val adp by lazy {
         AdapterStates(
-            listData =  mutableListOf(),
+            listData = mutableListOf(),
         )
     }
 
 
     private fun registrationObserver() {
-        viewModel.listStates.observe(viewLifecycleOwner, countryObserver)
+        viewModel.listStates.observe(viewLifecycleOwner, statesObserver)
     }
 
-    private val countryObserver = Observer<States> { countries ->
-        if (countries != null) {
-            setCountries(countries)
+    private val statesObserver = Observer<States> { states ->
+        if (states != null) {
+            setCountries(states)
         }
     }
 
