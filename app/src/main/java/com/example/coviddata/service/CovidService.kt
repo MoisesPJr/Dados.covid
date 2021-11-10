@@ -4,6 +4,7 @@ import com.example.coviddata.feature.countries.domain.Countries
 import com.example.coviddata.feature.countries.domain.Country
 import com.example.coviddata.feature.States.domain.States
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -12,16 +13,16 @@ interface CovidService {
 
     //Por pais
     @GET("v1/{country}")
-    fun getCountry(@Path("country") country: String): Call<Country>
+   suspend fun getCountry(@Path("country") country: String):Country
 
 
     //Todos os paises
     @GET("v1/countries")
-    fun getCountries(): Call<Countries>
+    suspend fun getCountries(): Countries
 
     //Todos os estados
     @GET("v1/")
-    fun getStatesBrazil(): Call<States>
+    suspend fun getStatesBrazil(): States
 
 
 

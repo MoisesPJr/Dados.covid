@@ -4,13 +4,17 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.coviddata.App
 import com.example.coviddata.feature.countries.domain.Countries
 import com.example.coviddata.feature.countries.domain.Country
 import com.example.coviddata.repository.CovidServiceRepository
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
+import java.util.concurrent.TimeoutException
 import javax.inject.Inject
 
 
@@ -19,7 +23,6 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
     init {
         getApplication<App>().component.inject(this)
     }
-
 
     @Inject
     lateinit var covidServiceRepository: CovidServiceRepository
@@ -40,47 +43,40 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
 
 
     fun getStatsCountry(country: String) {
-        covidServiceRepository.getCountry(country).enqueue(object : Callback<Country> {
-            override fun onResponse(call: Call<Country>?, response: Response<Country>?) {
-                try {
-                    if(response != null){
-                        _country.value = response.body()
-                    }
-                }catch (e: Exception){
-                    _errorThrowable.value = e.cause
+        viewModelScope.launch {
+            try {
+
+                val response = covidServiceRepository.getCountry(country)
+
+                response.let {
+                    _country.postValue(response)
                 }
 
+            } catch (e: Exception) {
+                _errorThrowable.value = e.cause
+                e.printStackTrace()
             }
-            override fun onFailure(call: Call<Country>?, t: Throwable?) {
-                if (t != null) {
-                    _errorThrowable.value = t.cause
-                }
-            }
-        })
+        }
     }
+
 
     fun getStatsCountries() {
-        covidServiceRepository.getCountries().enqueue(object : Callback<Countries> {
-            override fun onResponse(call: Call<Countries>?, response: Response<Countries>?) {
-               try {
-                   if (response != null) {
-                       _countries.value = response.body()
-                   }
-               }catch (e: Exception){
-                   _errorThrowable.value = e.cause
-               }
-            }
 
-            override fun onFailure(call: Call<Countries>?, t: Throwable?) {
-                if (t != null) {
-                    _errorThrowable.value = t.cause
+        viewModelScope.launch {
+            try {
+
+                val response = covidServiceRepository.getCountries()
+
+                response.let {
+                    _countries.postValue(response)
                 }
+
+            } catch (e: Exception) {
+                _errorThrowable.value = e.cause
+                e.printStackTrace()
             }
-
-        })
+        }
     }
-
-
 }
 
 

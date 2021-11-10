@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.example.coviddata.App
 import com.example.coviddata.feature.States.domain.States
 import com.example.coviddata.repository.CovidServiceRepository
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,25 +34,20 @@ class StateViewModel(application: Application) : AndroidViewModel(application) {
 
 
     fun getStatsStates() {
-        covidServiceRepository.getStates().enqueue(object : Callback<States> {
-            override fun onResponse(call: Call<States>?, response: Response<States>?) {
-                try {
-                    if (response != null) {
-                        _listStates.value = response.body()
-                    }
-                } catch (e: Exception) {
-                    _errorThrowable.value = e.cause
-                }
 
-            }
+        viewModelScope.launch {
+            try{
+                val response = covidServiceRepository.getStates()
 
-            override fun onFailure(call: Call<States>?, t: Throwable?) {
-                _listStates.value = null
-                if (t != null) {
-                    _errorThrowable.value = t.cause
+                response.let {
+                    _listStates.postValue(response)
                 }
+            }catch (e: Exception){
+                _errorThrowable.value = e.cause
+                e.printStackTrace()
             }
-        })
+        }
+
     }
 
 
