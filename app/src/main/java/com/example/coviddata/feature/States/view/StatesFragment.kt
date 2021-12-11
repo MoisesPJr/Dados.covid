@@ -1,17 +1,22 @@
 package com.example.coviddata.feature.States.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coviddata.R
 import com.example.coviddata.databinding.StatesFragmentBinding
-import com.example.coviddata.feature.States.domain.States
+import com.example.coviddata.feature.States.domain.Estado
 import com.example.coviddata.plugin.StateViewModel
+import androidx.appcompat.app.AppCompatActivity
+
+
+
 
 
 class StatesFragment : Fragment() {
@@ -35,8 +40,23 @@ class StatesFragment : Fragment() {
         initView()
         registrationObserver()
 
-        viewModel.getStatsStates()
+        viewModel.getStatsStatesByCases()
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.states_menu, menu)
+        return super.onCreateOptionsMenu(menu,inflater)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menuAlpha ->{
+                viewModel.getStatsStatesByName()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private val adp by lazy {
@@ -47,18 +67,18 @@ class StatesFragment : Fragment() {
 
 
     private fun registrationObserver() {
-        viewModel.listStates.observe(viewLifecycleOwner, statesObserver)
+        viewModel.listStatesByName.observe(viewLifecycleOwner, statesObserver)
     }
 
-    private val statesObserver = Observer<States> { states ->
+    private val statesObserver = Observer<List<Estado>> { states ->
         if (states != null) {
             setCountries(states)
         }
     }
 
-    fun setCountries(states: States) {
+    fun setCountries(states: List<Estado>) {
         adp.listData.clear()
-        adp.listData.addAll(states.data)
+        adp.listData.addAll(states)
         adp.notifyDataSetChanged()
     }
 
